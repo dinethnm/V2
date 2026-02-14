@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For My Valentine 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background: linear-gradient(135deg,#ffd6f6,#e0c3fc);
+font-family:'Poppins', sans-serif;
+overflow:hidden;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:480px;
+text-align:center;
+background: rgba(255,255,255,0.25);
+backdrop-filter: blur(25px);
+padding:35px 25px;
+border-radius:30px;
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
+position:relative;
+animation:fadeIn 0.6s ease;
+}
+
+h1{
+font-family:'Great Vibes', cursive;
+font-size:38px;
+color:#ff4da6;
+margin-bottom:18px;
+}
+
+p{
+color:#6a0572;
+margin-bottom:22px;
+font-size:16px;
+line-height:1.5;
+}
+
+input{
+padding:14px;
+width:100%;
+border:none;
+border-radius:20px;
+margin-bottom:18px;
+outline:none;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:14px;
+margin:8px 0;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+font-size:16px;
+}
+
+.yesBtn{
+background:#ff66b2;
+color:white;
+}
+
+.sureBtn{
+background:#c77dff;
+color:white;
+}
+
+.noBtn{
+background:#ff9999;
+color:white;
+position:absolute;
+width:auto;
+padding:12px 20px;
+}
+
+button:active{
+transform:scale(0.95);
+}
+
+.hidden{
+display:none;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(15px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+/* Floating Hearts */
+.heart{
+position:absolute;
+animation:float 6s linear infinite;
+pointer-events:none;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh); opacity:0;}
+100%{transform:translateY(-10vh); opacity:1;}
+}
+
+/* Small screen adjustment */
+@media (max-width:400px){
+h1{font-size:32px;}
+p{font-size:14px;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div id="page1">
+<h1>Welcome My Love 💖</h1>
+<p>Before I ask you something very special,  
+please tell me your beautiful name 😌</p>
+<input type="text" id="name" placeholder="Enter your name">
+<button class="yesBtn" onclick="nextPage()">Continue 💌</button>
+</div>
+
+<div id="page2" class="hidden">
+<h1>Hey <span id="showName"></span> 💕</h1>
+<p>I have something very important to ask you... 💭💖</p>
+<button class="sureBtn" onclick="goValentine()">I'm Ready 😌</button>
+</div>
+
+<div id="page3" class="hidden">
+<h1>Will You Be My Valentine? 💌</h1>
+<p>You make my world brighter every single day 💖</p>
+<button class="sureBtn" onclick="kinder()">Yeahhh sure!!! 😍</button>
+<button class="yesBtn" onclick="kinder()">Yes 💕</button>
+<button id="noBtn" class="noBtn">No ❌</button>
+</div>
+
+<div id="page4" class="hidden">
+<h1>One More Question 🍫</h1>
+<p>Do you want a Kinder Joy, my Valentine? 💝</p>
+<button class="yesBtn" onclick="finalPage()">Of courseeee 💕</button>
+</div>
+
+<div id="page5" class="hidden">
+<h1>Thank You for Being My Valentine 💞</h1>
+<p>You just made my heart the happiest 🥹💗</p>
+<button class="sureBtn" onclick="celebrate()">Celebrate 🎉</button>
+</div>
+
+</div>
+
+<script>
+
+function nextPage(){
+let name=document.getElementById("name").value.trim();
+if(name===""){
+alert("Please enter your name first 💕");
+return;
+}
+document.getElementById("showName").innerText=name;
+document.getElementById("page1").classList.add("hidden");
+document.getElementById("page2").classList.remove("hidden");
+}
+
+function goValentine(){
+document.getElementById("page2").classList.add("hidden");
+document.getElementById("page3").classList.remove("hidden");
+
+let btn=document.getElementById("noBtn");
+btn.style.position="absolute";
+btn.style.left="60%";
+btn.style.top="65%";
+}
+
+function kinder(){
+document.getElementById("page3").classList.add("hidden");
+document.getElementById("page4").classList.remove("hidden");
+}
+
+function finalPage(){
+document.getElementById("page4").classList.add("hidden");
+document.getElementById("page5").classList.remove("hidden");
+}
+
+function celebrate(){
+alert("YAYYYY 🎉💖 Take a screenshot now!");
+}
+
+/* Mobile + Desktop Run Away Button */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("touchstart",moveButton);
+noBtn.addEventListener("mouseover",moveButton);
+
+function moveButton(){
+const container=document.querySelector(".container");
+const maxX=container.clientWidth-noBtn.offsetWidth;
+const maxY=container.clientHeight-noBtn.offsetHeight;
+
+noBtn.style.left=Math.random()*maxX+"px";
+noBtn.style.top=Math.random()*maxY+"px";
+}
+
+/* Floating Hearts */
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML="💗";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},700);
+
+</script>
+
+</body>
+</html>
